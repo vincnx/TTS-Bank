@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <conio.h>
 
+void login();
+
 char pw1,uname1[100];
 char password1[100] ="";
 
