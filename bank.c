@@ -10,6 +10,11 @@ int menu_1_2();
 // end bagian 1
 // bagian 4
 int milihSetor();
+int setor();
+int tarik();
+int get_int();
+int cek_saldo();
+// end bagian 4
 
 // tools
 void gotoxy();
@@ -20,6 +25,7 @@ struct data_login
 {
     char nama[100];
     char password[8];
+    int isi_saldo;
 } data_login[100];
 
 int idx_data_login = 0; // index lokasi data_login
@@ -30,13 +36,10 @@ int coba = 2;           // maks percobaan login
 int main()
 {
     system("COLOR f1");
-    /*if (!login_cond)
+    if (!login_cond)
     {
         main_1();
     }
-    system("cls");
-    printf("bisa login!!");*/
-    milihSetor();
 }
 
 // bagian 1 (register & login)
@@ -162,8 +165,10 @@ int menu_1_2()
     {
         if (strcmp(login.nama, data_login[i].nama) == 0 && strcmp(login.password, data_login[i].password) == 0)
         {
-            printf("Berhasil Login");
+            system("cls");
+            printf("berhasil login!!");
             Sleep(1000);
+            milihSetor();
             login_cond = 1;
             return 0;
         }
@@ -185,7 +190,7 @@ int menu_1_2()
 // end bagian 1
 
 // bagian 4 kalkulasi (setor dan tarik uang -debit)
-int setor()
+int menusetor()
 {
     int pos = 3;
     while (1)
@@ -200,8 +205,10 @@ int setor()
         gotoxy(5, 3);
         printf("1. SETOR");
         gotoxy(5, 4);
-        printf("2. TARIK");
-        gotoxy(0, 5);
+        printf("2. CEK SALDO");
+        gotoxy(5, 5);
+        printf("3. TARIK");
+        gotoxy(0, 6);
         printf("==================");
         gotoxy(0, pos);
         printf("==>");
@@ -218,33 +225,82 @@ int setor()
         {
             return pos - 2;
         }
-        if (pos == 5)
+        if (pos == 6)
         {
             pos = 3;
         }
         else if (pos == 2)
         {
-            pos = 4;
+            pos = 5;
         }
     }
 }
 
-// milih setor/tarik
+// pilih setor/tarik
 int milihSetor()
 {
-    int pilihan = setor();
+    int pilihan = menusetor();
     switch (pilihan)
     {
     case 1: // setor
-        system("cls");
-        printf("menu setor");
+        setor();
         break;
-    case 2: // tarik
-        system("cls");
-        printf("menu tarik");
+    case 2:
+        cek_saldo(); // cek saldo
+        break;
+    case 3: // tarik
+        tarik();
         break;
     }
 }
+
+int setor()
+{
+    system("cls");
+    gotoxy(0, 0);
+    printf("==================");
+    gotoxy(0, 1);
+    printf(" MENU SETOR");
+    gotoxy(0, 2);
+    printf("==================");
+    data_login->isi_saldo = get_int("\nMasukkan Saldo = ");
+    system("cls");
+    printf("Berhasil Setor!");
+    Sleep(1000);
+    milihSetor();
+}
+
+int cek_saldo()
+{
+    system("cls");
+    gotoxy(0, 0);
+    printf("==================");
+    gotoxy(0, 1);
+    printf(" CEK SALDO");
+    gotoxy(0, 2);
+    printf("==================");
+    printf("\nJumlah saldo pada %s adalah %d", data_login->nama, data_login->isi_saldo);
+    Sleep(1000);
+    milihSetor();
+}
+
+int tarik()
+{
+    system("cls");
+    gotoxy(0, 0);
+    printf("==================");
+    gotoxy(0, 1);
+    printf(" MENU TARIK");
+    gotoxy(0, 2);
+    printf("==================");
+    int a = get_int("\nMasukkan jumlah penarikan = ");
+    data_login->isi_saldo = data_login->isi_saldo - a;
+    system("cls");
+    printf("Penarikan Berhasil!");
+    Sleep(1000);
+    milihSetor();
+}
+// end bagian 4
 
 // tools
 void gotoxy(int x, int y)
@@ -289,4 +345,30 @@ void get_password(struct data_login *target)
     }
     pass[i] = '\0';
     strcpy(target->password, pass);
+}
+
+int get_int(char *prompt)
+{
+    int num = 0, ch;
+
+    printf("%s", prompt);
+    while (1)
+    {
+        ch = getch();
+        if (ch == 13 && num)
+        {
+            break;
+        }
+        if (ch == 8 && num)
+        {
+            num /= 10;
+            printf("\b \b");
+        }
+        else if (ch >= 48 && ch <= 57 && ch != 13)
+        {
+            num = num * 10 + (ch - 48);
+            printf("%c", ch);
+        }
+    }
+    return num;
 }
