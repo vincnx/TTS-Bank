@@ -1,35 +1,41 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <conio.h>
+#include <windows.h>
 
 void login();
 
-char pw1,uname1[100];
-char password1[100] ="";
+char pw1, uname1[100];
+char password1[100] = "";
 
-char pw2,uname2[100];
-char password2[100] ="";
+char pw2, uname2[100];
+char password2[100] = "";
 
 int coba = 2;
 
-void regis() {
+void regis()
+{
 
     char username[100];
     char pw[100];
     int i = 0, x = 10;
 
+    system("cls");
     printf("Sign Up \n\n");
     printf("Username : ");
-    scanf(" %[^\n]s",&uname1);
+    scanf(" %[^\n]s", &uname1);
     printf("Password : ");
 
-    while((pw1=(char)_getch()) != '\r' ){
-        if(pw1==8){
-            password1[i]='\0';
+    while ((pw1 = (char)_getch()) != '\r')
+    {
+        if (pw1 == 8)
+        {
+            password1[i] = '\0';
             printf(" ");
             i--;
             x--;
-        } else{
+        }
+        else
+        {
             password1[i] = pw1;
             printf("*");
             x++;
@@ -44,34 +50,31 @@ void regis() {
     getch();
     system("cls");
     login();
-
-
 }
 
-void login() {
-
-     //====LOGIN=====
-
-char username[100];
+void login()
+{
+    char username[100];
     char pw[100];
     int j = 0, y = 10;
 
-
+    system("cls");
     printf("LOGIN \n\n");
     printf("Username :");
-    scanf(" %[^\n]s",&uname2);
+    scanf(" %[^\n]s", &uname2);
     printf("Password :");
 
-   // scanf(" %[^\n]s",&password2);
-
-
-	while((pw2=(char)_getch()) != '\r' ){
-        if(pw2==8){
-            password2[j]='\0';
+    while ((pw2 = (char)_getch()) != '\r')
+    {
+        if (pw2 == 8)
+        {
+            password2[j] = '\0';
             printf(" ");
             j--;
             y--;
-        } else{
+        }
+        else
+        {
             password2[j] = pw2;
             printf("*");
             y++;
@@ -79,45 +82,41 @@ char username[100];
         }
     }
 
-    //fflush(stdin);
-
-    //strcpy(password2,pw);
-    //strcpy(uname2,username);
-
-
     printf("\n");
 
-
-
-    if((strcmp(uname1,uname2)==0) && (strcmp(password1,password2)==0) && (coba >= 0)) {
+    if ((strcmp(uname1, uname2) == 0) && (strcmp(password1, password2) == 0) && (coba >= 0))
+    {
         system("cls");
         printf("\nlogin berhasil");
         getch();
         system("cls");
-        //menuBANK();
-    } else if((strcmp(uname1,uname2)!=0 || strcmp(password1,password2)!=0) && coba >= 0){
-        if(coba != 0) {
+        // menuBANK();
+    }
+    else if ((strcmp(uname1, uname2) != 0 || strcmp(password1, password2) != 0) && coba >= 0)
+    {
+        if (coba != 0)
+        {
             printf("\nPassword atau Username salah!\nAnda masih punya %d kesempatan", coba);
             coba--;
             getch();
             system("cls");
             login();
-        } else {
+        }
+        else
+        {
             printf("\nMaaf, kesempatan login anda sudah habis");
             getch();
         }
-
-
-
-    } else {
+    }
+    else
+    {
         printf("");
     }
-
 }
 
-int main () {
+int main()
+{
 
     system("COLOR f1");
     regis();
-
 }
