@@ -4,17 +4,19 @@
 
 void login();
 
-char pw1, uname1[100];
-char password1[100] = "";
+struct datauser
+{
+    char pw1, uname1[100];
+    char password1[100];
 
-char pw2, uname2[100];
-char password2[100] = "";
+    char pw2, uname2[100];
+    char password2[100];
+} datauser;
 
 int coba = 2;
 
 void regis()
 {
-
     char username[100];
     char pw[100];
     int i = 0, x = 10;
@@ -22,21 +24,21 @@ void regis()
     system("cls");
     printf("Sign Up \n\n");
     printf("Username : ");
-    scanf(" %[^\n]s", &uname1);
+    scanf(" %[^\n]s", &datauser.uname1);
     printf("Password : ");
 
-    while ((pw1 = (char)_getch()) != '\r')
+    while ((datauser.pw1 = (char)_getch()) != '\r')
     {
-        if (pw1 == 8)
+        if (datauser.pw1 == 8)
         {
-            password1[i] = '\0';
+            datauser.password1[i] = '\0';
             printf(" ");
             i--;
             x--;
         }
         else
         {
-            password1[i] = pw1;
+            datauser.password1[i] = datauser.pw1;
             printf("*");
             x++;
             i++;
@@ -61,21 +63,21 @@ void login()
     system("cls");
     printf("LOGIN \n\n");
     printf("Username :");
-    scanf(" %[^\n]s", &uname2);
+    scanf(" %[^\n]s", &datauser.uname2);
     printf("Password :");
 
-    while ((pw2 = (char)_getch()) != '\r')
+    while ((datauser.pw2 = (char)_getch()) != '\r')
     {
-        if (pw2 == 8)
+        if (datauser.pw2 == 8)
         {
-            password2[j] = '\0';
+            datauser.password2[j] = '\0';
             printf(" ");
             j--;
             y--;
         }
         else
         {
-            password2[j] = pw2;
+            datauser.password2[j] = datauser.pw2;
             printf("*");
             y++;
             j++;
@@ -84,7 +86,7 @@ void login()
 
     printf("\n");
 
-    if ((strcmp(uname1, uname2) == 0) && (strcmp(password1, password2) == 0) && (coba >= 0))
+    if ((strcmp(datauser.uname1, datauser.uname2) == 0) && (strcmp(datauser.password1, datauser.password2) == 0) && (coba >= 0))
     {
         system("cls");
         printf("\nlogin berhasil");
@@ -92,7 +94,7 @@ void login()
         system("cls");
         // menuBANK();
     }
-    else if ((strcmp(uname1, uname2) != 0 || strcmp(password1, password2) != 0) && coba >= 0)
+    else if ((strcmp(datauser.uname1, datauser.uname2) != 0 || strcmp(datauser.password1, datauser.password2) != 0) && coba >= 0)
     {
         if (coba != 0)
         {
