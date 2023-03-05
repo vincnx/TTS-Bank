@@ -118,27 +118,41 @@ int menu_awal(){
 // bagian tampilkan nasabah
 void tampil_nama () {
     system("cls");
+    gotoxy(0,0);
+    printf("=================================");
+    gotoxy(0,1);
+    printf("       DAFTAR NAMA NASABAH");
+    gotoxy(0,2);
+    printf("=================================");
+    gotoxy(0,3);
     if (idx_data_diri){
-        printf("Daftar Nasabah :\n");
         for (int i = 0; i < idx_data_diri; i++){
-            printf("%i. %s %s (%i)\n", i+1, data_diri[i].depan, data_diri[i].belakang, data_diri[i].nomor);
+            gotoxy(0, 3 + i);
+            printf("%i. %s %s (%i)", i+1, data_diri[i].depan, data_diri[i].belakang, data_diri[i].nomor);
         }
     }
     else{
-        printf("Belum Ada Nasabah.\n");
+        printf("Belum Ada Nasabah.");
     }
+    printf("\n");
 }
 // end tampilkan nasabah
 
 // bagian input nasabah
 void input_nama () {
-    int norek;
     system("cls");
-    printf("Masukkan nama depan: ");
+    gotoxy(0,0);
+    printf("==================================");
+    gotoxy(0,1);
+    printf("          TAMBAH NASABAH");
+    gotoxy(0,2);
+    printf("==================================");
+    gotoxy(0,3);
+    printf("Masukkan nama depan   : ");
     scanf(" %[^\n]s", data_diri[idx_data_diri].depan);
     printf("Masukkan nama belakang: ");
     scanf(" %[^\n]s", data_diri[idx_data_diri].belakang);
-    data_diri[idx_data_diri].nomor = 6720220 + idx_data_diri + 1;
+    data_diri[idx_data_diri].nomor = 672022000 + idx_data_diri + 1;
     idx_data_diri++;
 }
 // end bagian input nasabah
