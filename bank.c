@@ -1,15 +1,23 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+#include <string.h>
 
-// bagian 1 (register & login)
+// bagian register & login
 int main_1();
 int menu_1();
 int menu_1_1();
 int menu_1_2();
-// end bagian 1
-// bagian 2
-
+// end bagian register & login
+// bagian menu awal
+int menu_awal();
+// end menu awal
+// bagian tampilkan nasabah
+void tampil_nama();
+// end tampilkan nasabah
+// bagian input nasabah
+void input_nama();
+// end input nasabah
 // tools
 void gotoxy();
 void get_password();
@@ -20,21 +28,122 @@ struct data_login{
     char password[8];
 } data_login[100];
 
+struct Nama {
+    char depan[50];
+    char belakang[50];
+    int nomor;
+    int saldo;
+} data_diri[100];
+
 int idx_data_login = 0; // index lokasi data_login
 int login_cond = 0; // kondisi login (1 = sudah login) (0 = belum login)
 int coba = 2; // maks percobaan login
-//
+int idx_data_diri = 0; // index lokasi data_diri
 
 int main(){
+    int pilihan;
     system("COLOR f1");
     if (!login_cond){
         main_1();
     }
-    system("cls");
-    printf("bisa login!!");
+    pilihan = menu_awal();
+    switch (pilihan){
+    case 1:
+        tampil_nama();
+        system("pause");
+        main();
+        break;
+    case 2:
+        input_nama();
+        system("pause");
+        main();
+        break;
+    case 3:
+        /* code */
+        break;
+    case 4:
+        /* code */
+        break;
+    case 5:
+        /* code */
+        break;
+    }
 }
 
-// bagian 1 (register & login)
+// bagian menu awal
+int menu_awal(){
+    int pos = 3;
+    while(1){
+        system("cls");
+        gotoxy(0,0);
+        printf("================================");
+        gotoxy(0,1);
+        printf("            BANK");
+        gotoxy(0,2);
+        printf("================================");
+        gotoxy(5,3);
+        printf("1. Tampilkan daftar Nasabah");
+        gotoxy(5,4);
+        printf("2. Tambah nasabah");
+        gotoxy(5,5);
+        printf("3. Setor & Tarik Uang");
+        gotoxy(5,6);
+        printf("4. Cek Saldo");
+        gotoxy(5,7);
+        printf("5. Exit");
+        gotoxy(0,8);
+        printf("================================");
+        gotoxy(0, pos);
+        printf("==>");
+        int key = getch();
+        if (key == 72){
+            pos--;
+        }
+        else if (key == 80){
+            pos++;
+        }
+        else if (key == 13){
+            return pos - 2;
+        }
+        if (pos == 8){
+            pos = 3;
+        }
+        else if (pos == 2){
+            pos = 7;
+        }
+    }
+}
+// end menu awal
+
+// bagian tampilkan nasabah
+void tampil_nama () {
+    system("cls");
+    if (idx_data_diri){
+        printf("Daftar Nasabah :\n");
+        for (int i = 0; i < idx_data_diri; i++){
+            printf("%i. %s %s (%i)\n", i+1, data_diri[i].depan, data_diri[i].belakang, data_diri[i].nomor);
+        }
+    }
+    else{
+        printf("Belum Ada Nasabah.\n");
+    }
+}
+// end tampilkan nasabah
+
+// bagian input nasabah
+void input_nama () {
+    int norek;
+    system("cls");
+    printf("Masukkan nama depan: ");
+    scanf(" %[^\n]s", data_diri[idx_data_diri].depan);
+    printf("Masukkan nama belakang: ");
+    scanf(" %[^\n]s", data_diri[idx_data_diri].belakang);
+    data_diri[idx_data_diri].nomor = 6720220 + idx_data_diri + 1;
+    idx_data_diri++;
+}
+// end bagian input nasabah
+
+// bagian register & login
 int main_1(){ // main register & login
     int pilihan = menu_1();
     switch (pilihan){
@@ -159,7 +268,6 @@ int menu_1_2(){ // menu login
     }
 }
 // end bagian 1
-
 
 // tools
 void gotoxy(int x, int y){
