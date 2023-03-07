@@ -62,7 +62,9 @@ int main(){
         /* code */
         break;
     case 4:
-        /* code */
+        cek_saldo();
+        system("pause");
+        main();
         break;
     case 5:
         /* code */
@@ -116,6 +118,22 @@ int menu_awal(){
 // end menu awal
 
 // bagian tampilkan nasabah
+int cek_saldo(){
+    int sld;
+    system("cls");
+    printf("MASUKAN NOMOR REKENING :");
+    scanf("%d",&sld);
+    for(int i=0;i<idx_data_diri;i++){
+        if(sld-data_diri[i].nomor==0){
+            printf("%s %s",data_diri[i].depan,data_diri[i].belakang);
+            printf("\n%i",data_diri[i].saldo);
+            return 0;
+        }
+    }
+    printf("NOMOR REKENING TIDAK DIKENAL!\n");
+    system("pause");
+        cek_saldo();
+}
 void tampil_nama () {
     system("cls");
     gotoxy(0,0);
