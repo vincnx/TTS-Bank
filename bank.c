@@ -18,6 +18,9 @@ void tampil_nama();
 // bagian input nasabah
 void input_nama();
 // end input nasabah
+// bagian cek saldo
+int cek_saldo();
+// end cek saldo
 // tools
 void gotoxy();
 void get_password();
@@ -39,13 +42,13 @@ int idx_data_login = 0; // index lokasi data_login
 int login_cond = 0; // kondisi login (1 = sudah login) (0 = belum login)
 int coba = 2; // maks percobaan login
 int idx_data_diri = 0; // index lokasi data_diri
-
+int kesempatan = 2; // kesempatan input nomor rekening di cek saldo
 int main(){
     int pilihan;
     system("COLOR f1");
-    if (!login_cond){
-        main_1();
-    }
+    // if (!login_cond){
+    //     main_1();
+    // }
     pilihan = menu_awal();
     switch (pilihan){
     case 1:
@@ -118,22 +121,6 @@ int menu_awal(){
 // end menu awal
 
 // bagian tampilkan nasabah
-int cek_saldo(){
-    int sld;
-    system("cls");
-    printf("MASUKAN NOMOR REKENING :");
-    scanf("%d",&sld);
-    for(int i=0;i<idx_data_diri;i++){
-        if(sld-data_diri[i].nomor==0){
-            printf("%s %s",data_diri[i].depan,data_diri[i].belakang);
-            printf("\n%i",data_diri[i].saldo);
-            return 0;
-        }
-    }
-    printf("NOMOR REKENING TIDAK DIKENAL!\n");
-    system("pause");
-        cek_saldo();
-}
 void tampil_nama () {
     system("cls");
     gotoxy(0,0);
@@ -171,6 +158,7 @@ void input_nama () {
     printf("Masukkan nama belakang: ");
     scanf(" %[^\n]s", data_diri[idx_data_diri].belakang);
     data_diri[idx_data_diri].nomor = 672022000 + idx_data_diri + 1;
+    printf("Nomor Rekening Anda   : %i\n", data_diri[idx_data_diri].nomor);
     idx_data_diri++;
 }
 // end bagian input nasabah
@@ -284,6 +272,7 @@ int menu_1_2(){ // menu login
             printf("Berhasil Login");
             Sleep(1000);
             login_cond = 1;
+            coba = 2;
             return 0;
         }
     }
@@ -296,10 +285,50 @@ int menu_1_2(){ // menu login
     else{
         printf("Maaf, kesempatan login anda telah habis.", coba);
         Sleep(1000);
-        return system("exit");
+        coba = 2;
+        return main();
     }
 }
-// end bagian 1
+// end regis & login
+
+// bagian cek saldo
+int cek_saldo(){
+    int sld; 
+    system("cls");
+    gotoxy(0,0);
+    printf("=================================");
+    gotoxy(0,1);
+    printf("            CEK SALDO");
+    gotoxy(0,2);
+    printf("=================================");
+    gotoxy(0,3);
+    if (idx_data_diri){
+        printf("MASUKAN NOMOR REKENING :");
+        fflush(stdin);
+        scanf("%d",&sld);
+        system("cls");
+        for(int i=0;i<idx_data_diri;i++){
+            if(sld-data_diri[i].nomor==0){
+                printf("%s %s",data_diri[i].depan,data_diri[i].belakang);
+                printf("\nSaldo Anda : Rp.%i.00\n",data_diri[i].saldo);
+                kesempatan = 2;
+                return 0;
+            }
+        }
+        if (kesempatan){
+            printf("NOMOR REKENING TIDAK DIKENAL!\nANDA MASIH PUNYA %i KESEMPATAN\n", kesempatan);
+            kesempatan--;
+            system("pause");
+            return cek_saldo();
+        }
+        printf("MAAF KESEMPATAN ANDA SUDAH HABIS.\n");
+        kesempatan = 2;
+    }
+    else{
+        printf("Belum Ada Nasabah\n");
+    }
+}
+// end cek saldo
 
 // tools
 void gotoxy(int x, int y){
