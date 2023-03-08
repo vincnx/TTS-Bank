@@ -510,7 +510,7 @@ int tarik()
         main();
     }
 }
-// end bagian 4
+// end bagian 4 kalkulasi (setor dan tarik uang -debit)
 
 // bagian cek saldo
 int cek_saldo()
