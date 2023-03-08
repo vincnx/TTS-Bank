@@ -55,9 +55,9 @@ int main()
 {
     int pilihan;
     system("COLOR 1f");
-    // if (!login_cond){
-    //     main_1();
-    // }
+    if (!login_cond){
+        main_1();
+    }
     pilihan = menu_awal();
     switch (pilihan)
     {
@@ -402,11 +402,11 @@ int setor()
     int rek;
     system("cls");
     gotoxy(0, 0);
-    printf("=============================");
+    printf("=================================");
     gotoxy(0, 1);
-    printf("         MENU SETOR");
+    printf("           MENU SETOR");
     gotoxy(0, 2);
-    printf("=============================");
+    printf("=================================");
     if (idx_data_diri)
     {
         printf("\nMASUKAN NOMOR REKENING :");
@@ -453,11 +453,11 @@ int tarik()
     int rek;
     system("cls");
     gotoxy(0, 0);
-    printf("=============================");
+    printf("=================================");
     gotoxy(0, 1);
-    printf("         MENU TARIK");
+    printf("           MENU TARIK");
     gotoxy(0, 2);
-    printf("=============================");
+    printf("=================================");
     if (idx_data_diri)
     {
         printf("\nMASUKAN NOMOR REKENING :");
@@ -533,7 +533,7 @@ int cek_saldo()
             if (sld - data_diri[i].nomor == 0)
             {
                 printf("%s %s", data_diri[i].depan, data_diri[i].belakang);
-                printf("\nSaldo Anda : Rp.%i,00\n", data_diri[i].saldo);
+                printf("\nSaldo Anda : Rp.%i.00\n", data_diri[i].saldo);
                 kesempatan = 2;
                 return 0;
             }
