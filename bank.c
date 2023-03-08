@@ -340,11 +340,11 @@ int menusetor()
     {
         system("cls");
         gotoxy(0, 0);
-        printf("==================");
+        printf("=========================");
         gotoxy(0, 1);
         printf("SETOR & TARIK UANG DEBIT");
         gotoxy(0, 2);
-        printf("==================");
+        printf("========================");
         gotoxy(5, 3);
         printf("1. SETOR");
         gotoxy(5, 4);
@@ -352,7 +352,7 @@ int menusetor()
         gotoxy(5, 5);
         printf("3. KEMBALI");
         gotoxy(0, 6);
-        printf("==================");
+        printf("========================");
         gotoxy(0, pos);
         printf("==>");
         int key = getch();
@@ -402,11 +402,11 @@ int setor()
     int rek;
     system("cls");
     gotoxy(0, 0);
-    printf("==================");
+    printf("=============================");
     gotoxy(0, 1);
-    printf(" MENU SETOR");
+    printf("         MENU SETOR");
     gotoxy(0, 2);
-    printf("==================");
+    printf("=============================");
     if (idx_data_diri)
     {
         printf("\nMASUKAN NOMOR REKENING :");
@@ -424,7 +424,7 @@ int setor()
                     system("cls");
                     printf("Jumlah terlalu kecil.\n");
                     system("pause");
-                    setor();
+                    return setor();
                 }
                 else
                 {
@@ -453,11 +453,11 @@ int tarik()
     int rek;
     system("cls");
     gotoxy(0, 0);
-    printf("==================");
+    printf("=============================");
     gotoxy(0, 1);
-    printf(" MENU TARIK");
+    printf("         MENU TARIK");
     gotoxy(0, 2);
-    printf("==================");
+    printf("=============================");
     if (idx_data_diri)
     {
         printf("\nMASUKAN NOMOR REKENING :");
@@ -475,7 +475,7 @@ int tarik()
                     system("cls");
                     printf("Jumlah terlalu kecil.\n");
                     system("pause");
-                    tarik();
+                    return tarik();
                 }
                 else
                 {
@@ -484,8 +484,7 @@ int tarik()
                         system("cls");
                         printf("Saldo anda tidak cukup.\n");
                         system("pause");
-                        milihSetor();
-                        break;
+                        return milihSetor();
                     }
                     else
                     {
@@ -493,8 +492,7 @@ int tarik()
                         system("cls");
                         printf("Penarikan Berhasil!\n");
                         system("pause");
-                        main();
-                        break;
+                        return main();
                     }
                 }
             }
@@ -507,7 +505,7 @@ int tarik()
     {
         printf("\nBelum Ada Nasabah\n");
         system("pause");
-        main();
+        return main();
     }
 }
 // end bagian 4 kalkulasi (setor dan tarik uang -debit)
@@ -535,7 +533,7 @@ int cek_saldo()
             if (sld - data_diri[i].nomor == 0)
             {
                 printf("%s %s", data_diri[i].depan, data_diri[i].belakang);
-                printf("\nSaldo Anda : Rp.%i.00\n", data_diri[i].saldo);
+                printf("\nSaldo Anda : Rp.%i,00\n", data_diri[i].saldo);
                 kesempatan = 2;
                 return 0;
             }
