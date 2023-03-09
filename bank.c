@@ -26,6 +26,9 @@ int tarik();
 // bagian cek saldo
 int cek_saldo();
 // end cek saldo
+// bagian tampil nama
+int anggota_kel();
+// end tampil nama
 // tools
 void gotoxy();
 void get_password();
@@ -55,9 +58,9 @@ int main()
 {
     int pilihan;
     system("COLOR 1f");
-    if (!login_cond){
-        main_1();
-    }
+    // if (!login_cond){
+    //     main_1();
+    // }
     pilihan = menu_awal();
     switch (pilihan)
     {
@@ -80,7 +83,8 @@ int main()
         main();
         break;
     case 5:
-        /* code */
+        anggota_kel();
+        system("exit");
         break;
     }
 }
@@ -554,6 +558,25 @@ int cek_saldo()
     }
 }
 // end cek saldo
+
+// bagian tampil nama
+int anggota_kel(){
+    system("cls");
+    printf("====================================\n");
+    printf("         KELOMPOK 5 - BANK\n");
+    printf("====================================\n");
+    printf("ANGGOTA KELOMPOK :\n");
+    Sleep(750);
+    printf("CLAUDIO CANAVARO         (672022015)\n");
+    Sleep(750);
+    printf("VINCENT EXELCIO SUSANTO  (672022070)\n");
+    Sleep(750);
+    printf("HOSEA RAKA NARWASTUDJATI (672022160)\n");
+    Sleep(750);
+    printf("YOVIEA APRINDO TUMON     (672022070)\n");
+    Sleep(750);
+    printf("DIMAS IRSAD BAHARUDIN    (672022324)\n");
+}
 
 // tools
 void gotoxy(int x, int y)
