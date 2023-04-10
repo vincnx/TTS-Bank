@@ -29,6 +29,12 @@ int cek_saldo();
 // bagian tampil nama
 int anggota_kel();
 // end tampil nama
+// bagian rank nasabah
+int main_rank();
+int menu_rank();
+int terkaya();
+// end rank nasabah
+
 // tools
 void gotoxy();
 void get_password();
@@ -54,6 +60,8 @@ int login_cond = 0;     // kondisi login (1 = sudah login) (0 = belum login)
 int coba = 2;           // maks percobaan login
 int idx_data_diri = 0;  // index lokasi data_diri
 int kesempatan = 2;     // kesempatan input nomor rekening di cek saldo
+int len = 0;
+
 int main()
 {
     int pilihan;
@@ -86,6 +94,8 @@ int main()
         anggota_kel();
         system("exit");
         break;
+    case 6:
+        main_rank();
     }
 }
 
@@ -112,7 +122,9 @@ int menu_awal()
         printf("4. Cek Saldo");
         gotoxy(5, 7);
         printf("5. Exit");
-        gotoxy(0, 8);
+        gotoxy(5, 8);
+        printf("6. Rank Nasabah");
+        gotoxy(0, 9);
         printf("================================");
         gotoxy(0, pos);
         printf("==>");
@@ -129,13 +141,13 @@ int menu_awal()
         {
             return pos - 2;
         }
-        if (pos == 8)
+        if (pos == 9)
         {
             pos = 3;
         }
         else if (pos == 2)
         {
-            pos = 7;
+            pos = 8;
         }
     }
 }
@@ -186,6 +198,7 @@ void input_nama()
     data_diri[idx_data_diri].nomor = 672022000 + idx_data_diri + 1;
     printf("Nomor Rekening Anda   : %i\n", data_diri[idx_data_diri].nomor);
     idx_data_diri++;
+    len++;
 }
 // end bagian input nasabah
 
@@ -577,6 +590,95 @@ int anggota_kel(){
     Sleep(750);
     printf("DIMAS IRSAD BAHARUDIN    (672022324)\n");
 }
+// end tampil nama
+
+// bagian rank nasabah
+int main_rank(){
+    int pilihan = menu_rank();
+    switch (pilihan){
+        case 1:
+            terkaya();
+    }
+}
+
+int menu_rank(){
+    int pos = 3;
+    while (1){
+        system("cls");
+        gotoxy(0, 0);
+        printf("=================");
+        gotoxy(0, 1);
+        printf("  RANK NASABAH");
+        gotoxy(0, 2);
+        printf("=================");
+        gotoxy(5, 3);
+        printf("1. Terkaya");
+        gotoxy(5, 4);
+        printf("2. Terbokek");
+        gotoxy(0, 5);
+        printf("=================");
+        gotoxy(0, pos);
+        printf("==>");
+        int key = getch();
+        if (key == 72){
+            pos--;
+        }
+        else if (key == 80){
+            pos++;
+        }
+        else if (key == 13){
+            return pos - 2;
+        }
+        if (pos == 5){
+            pos = 3;
+        }
+        else if (pos == 2){
+            pos = 4;
+        }
+    }
+}
+
+int terkaya(){
+    system("cls");
+    gotoxy(0, 0);
+    printf("=================================");
+    gotoxy(0, 1);
+    printf("             TERKAYA");
+    gotoxy(0, 2);
+    printf("=================================");
+    gotoxy(0, 3);
+    int max = 0;
+    int limit = 0;
+    int cond = 1;
+    int num = 1;
+    while (cond){
+        cond = 0;
+        for (int i = 0; i < len; i++){
+            if (limit){
+                if (data_diri[i].saldo > max && data_diri[i].saldo < limit){
+                    max = data_diri[i].saldo;
+                    cond = 1;
+                }
+            }
+            else{
+                if (data_diri[i].saldo > max){
+                    max = data_diri[i].saldo;
+                    cond = 1;
+                }
+            }
+        }
+        for (int i = 0; i < len; i++){
+            if (data_diri[i].saldo == max){
+                printf("%i. %s %s  saldo : Rp.%i.00\n", num, data_diri[i].depan, data_diri[i].belakang, data_diri[i].saldo);
+                num++;
+            }
+        }
+        limit = max;
+        max = 0;
+    }
+}
+
+// end rank nasabah
 
 // tools
 void gotoxy(int x, int y)
