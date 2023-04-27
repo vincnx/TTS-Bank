@@ -33,6 +33,7 @@ int anggota_kel();
 int main_rank();
 int menu_rank();
 int terkaya();
+int terbokek();
 // end rank nasabah
 
 // tools
@@ -96,6 +97,9 @@ int main()
         break;
     case 6:
         main_rank();
+        system("pause");
+        main();
+        break;
     }
 }
 
@@ -195,7 +199,7 @@ void input_nama()
     scanf(" %[^\n]s", data_diri[idx_data_diri].depan);
     printf("Masukkan nama belakang: ");
     scanf(" %[^\n]s", data_diri[idx_data_diri].belakang);
-    data_diri[idx_data_diri].nomor = 672022000 + idx_data_diri + 1;
+    data_diri[idx_data_diri].nomor = 672022001 + len;
     printf("Nomor Rekening Anda   : %i\n", data_diri[idx_data_diri].nomor);
     idx_data_diri++;
     len++;
@@ -598,6 +602,10 @@ int main_rank(){
     switch (pilihan){
         case 1:
             terkaya();
+            break;
+        case 2:
+            terbokek();
+            break;
     }
 }
 
@@ -647,37 +655,83 @@ int terkaya(){
     gotoxy(0, 2);
     printf("=================================");
     gotoxy(0, 3);
-    int max = 0;
-    int limit = 0;
-    int cond = 1;
-    int num = 1;
-    while (cond){
-        cond = 0;
-        for (int i = 0; i < len; i++){
-            if (limit){
-                if (data_diri[i].saldo > max && data_diri[i].saldo < limit){
-                    max = data_diri[i].saldo;
-                    cond = 1;
+    if (idx_data_diri){
+        int max = 0;
+        int limit = 0;
+        int cond = 1;
+        int num = 1;
+        while (cond){
+            cond = 0;
+            for (int i = 0; i < idx_data_diri; i++){
+                if (limit){
+                    if (data_diri[i].saldo > max && data_diri[i].saldo < limit){
+                        max = data_diri[i].saldo;
+                        cond = 1;
+                    }
+                }
+                else{
+                    if (data_diri[i].saldo > max){
+                        max = data_diri[i].saldo;
+                        cond = 1;
+                    }
                 }
             }
-            else{
-                if (data_diri[i].saldo > max){
-                    max = data_diri[i].saldo;
-                    cond = 1;
+            for (int i = 0; i < idx_data_diri; i++){
+                if (data_diri[i].saldo == max){
+                    printf("%i. %s %s  saldo : Rp.%i.00\n", num, data_diri[i].depan, data_diri[i].belakang, data_diri[i].saldo);
+                    num++;
                 }
             }
+            limit = max;
+            max = 0;
         }
-        for (int i = 0; i < len; i++){
-            if (data_diri[i].saldo == max){
-                printf("%i. %s %s  saldo : Rp.%i.00\n", num, data_diri[i].depan, data_diri[i].belakang, data_diri[i].saldo);
-                num++;
-            }
-        }
-        limit = max;
-        max = 0;
+    }
+    else{
+        printf("Belum Ada Nasabah\n");
     }
 }
 
+int terbokek(){
+    system("cls");
+    gotoxy(0, 0);
+    printf("================================");
+    gotoxy(0, 1);
+    printf("            TERBOKEK");
+    gotoxy(0, 2);
+    printf("================================");
+    gotoxy(0, 3);
+    if (idx_data_diri){
+        int cond = 1;
+        int limit = -1;
+        int num = 1;
+        int max = 0;
+        for (int i = 0; i < idx_data_diri; i++){
+            if (data_diri[i].saldo > max){
+                max = data_diri[i].saldo;
+            }
+        }
+        while (cond){
+            int lowest = max;
+            cond = 0;
+            for (int i = 0; i < idx_data_diri; i++){
+                if (data_diri[i].saldo < lowest && data_diri[i].saldo > limit){
+                    lowest = data_diri[i].saldo;
+                    cond = 1;
+                }
+            }
+            limit = lowest;
+            for (int i = 0; i < idx_data_diri; i++){
+                if (data_diri[i].saldo == lowest){
+                    printf("%i. %s %s saldo : Rp.%i.00\n", num, data_diri[i].depan, data_diri[i].belakang, data_diri[i].saldo);
+                    num++;
+                }
+            }
+        }
+    }
+    else{
+        printf("Belum Ada Nasabah\n");
+    }
+}
 // end rank nasabah
 
 // tools
